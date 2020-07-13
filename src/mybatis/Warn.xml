@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flf.mapper.WarnMapper">
+	<sql id="warnColumns">name,propotion,rate,level,status,create_time</sql>
+
+	<resultMap type="Warn" id="warnResultMap">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="propotion" property="propotion"/>
+		<result column="rate" property="rate"/>
+		<result column="level" property="level"/>
+		<result column="deal_time" property="dealTime"/>
+		<result column="status" property="status"/>
+		<result column="create_time" property="createTime"/>
+	</resultMap>
+
+	<select id="listAllWarn" resultMap="warnResultMap">
+		select id,name,propotion,level,deal_time,status,create_time,rate
+		from tb_warn
+	</select>
+
+	<select id="selectWarnByLevel" resultType="java.lang.String" parameterType="int">
+    SELECT IFNULL(tb.counts,0)   FROM  past_12_month_view  v LEFT JOIN(SELECT  DATE_FORMAT(t.create_time, '%Y-%m' ) AS times,COUNT(t.id)  as counts FROM	tb_warn t WHERE t.level=#{level}
+    AND	  t.create_time >= DATE_ADD( last_day( date_sub( curdate( ), INTERVAL 1 YEAR ) ), INTERVAL 1 DAY )
+    GROUP BY  DATE_FORMAT(t.create_time, '%Y-%m' )  ) tb on tb.times=v.month  ORDER BY v.month
+	</select>
+	<select id="listPageWarn" parameterType="Warn" resultMap="warnResultMap">
+		select id,name,propotion,level,deal_time,status,create_time,rate
+		from tb_warn
+		where 1=1
+		<if test="level!=null and level!=''">
+			and level =#{level}
+		</if>
+		<if test="status!=null">
+			and status=#{status}
+		</if>
+	</select>
+	
+	<insert id="insertWarn" parameterType="Warn" useGeneratedKeys="true" keyProperty="id">
+		insert tb_warn (<include refid="warnColumns"/>) values (#{name},#{propotion},#{rate},#{level},#{status},#{createTime})
+	</insert>
+	<update id="updateWarn" parameterType="Warn">
+		update tb_warn set
+		deal_time=#{dealTime},
+		status=#{status}
+		where id=#{id}
+	</update>
+</mapper>

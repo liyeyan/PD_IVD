@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flf.mapper.RuleMapper">
+	<resultMap type="TbRule" id="ruleResultMap">
+		<id column="id" property="id"/>
+		<result column="RULE_NAME" property="ruleName"/>
+		<result column="ASS_TYPE" property="assType"/>
+		<result column="ASS_OBJ" property="assObj"/>
+		<result column="RATE" property="rate"/>
+		<result column="RULE_TIME_F" property="ruleTimeF"/>
+		<result column="RULE_TIME_T" property="ruleTimeT"/>
+		<result column="WARN_TIME" property="warnTime"/>
+		<result column="WARN_TYPE" property="warnType"/>
+		<result column="creator" property="creator"/>
+		<result column="creat_time" property="creatTime"/>
+		<result column="warn_deal" property="warnDeal"/>
+		<result column="warn_ign" property="warnIgn"/>
+		<result column="warn_todo" property="warnTodo"/>
+	</resultMap>
+
+	<select id="listPageRule" parameterType="TbRule" resultMap="ruleResultMap">
+		 select * from tb_rule
+	</select>
+	<select id="getRuleById" parameterType="Integer" resultMap="ruleResultMap">
+		 select * from tb_rule where id={#id}
+	</select>
+	<insert id="insert" parameterType="TbRule">
+		insert into tb_rule (RULE_NAME,ASS_TYPE,ASS_OBJ,RATE,RULE_TIME_F,RULE_TIME_T,WARN_TIME,WARN_TYPE,creator,creat_time)
+		values (
+		#{ruleName},
+		#{assType},
+		#{assObj},
+		#{rate},
+		#{ruleTimeF},
+		#{ruleTimeT},
+		#{warnTime},
+		#{warnType},
+		#{creator},
+		#{creatTime}
+		)
+	</insert>
+	<update id="update" parameterType="TbRule">
+		update tb_rule
+		set
+		RULE_NAME=#{ruleName},
+		ASS_TYPE=#{assType},
+		ASS_OBJ=#{assObj},
+		rate=#{rate},
+		RULE_TIME_F=#{ruleTimeF},
+		RULE_TIME_T=#{ruleTimeT},
+		WARN_TIME=#{warnTime},
+		WARN_TYPE=#{warnType},
+		creator=#{creator},
+		where id=#{id}
+	</update>
+</mapper>

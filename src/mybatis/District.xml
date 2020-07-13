@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flf.mapper.DistrictMapper">
+
+	<resultMap type="District" id="districtResultMap">
+		<id column="id" property="id"/>
+		<result column="pid" property="pId"/>
+		<result column="district" property="district"/>
+		<result column="level" property="level"/>
+		<result column="warn_count" property="warnCount"/>
+	</resultMap>
+
+	<select id="listDistrict" parameterType="District" resultMap="districtResultMap">
+		 select * from rc_district where 1=1
+		<if test="level!=-1 and level!=null">
+			AND level=#{level}
+		</if>
+		<if test="pId!=-1 and pId!=null">
+			AND pid=#{pId}
+		</if>
+	</select>
+	<select id="listWarnDistrict"  resultMap="districtResultMap">
+		select district,warn_count
+		from rc_district
+		where level=2
+	</select>
+
+</mapper>
