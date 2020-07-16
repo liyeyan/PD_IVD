@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 public class TbRule {
     private Integer id;
     private String ruleName;//规则名称
+    private String assModel;//组合模式，多个规则用,隔开
     private String assType; //关联类型
     private String assObj;//关联对象
     private Float rate;//阈值

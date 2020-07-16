@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface RuleService {
 	List<TbRule>  listPageRule(TbRule rule );
+	List<TbRule>  listRule(TbRule rule );
 	List <District>listDistrict (District district);
     void updateRule(TbRule rule);
 

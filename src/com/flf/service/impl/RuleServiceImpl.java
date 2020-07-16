@@ -32,6 +32,10 @@ public class RuleServiceImpl implements RuleService {
 	public List<TbRule> listPageRule(TbRule rule) {
 		return ruleMapper.listPageRule(rule);
 	}
+	@Override
+	public List<TbRule> listRule(TbRule rule) {
+		return ruleMapper.listPageRule(rule);
+	}
 	public List<District> listDistrict (District district){
 		return districtMapper.listDistrict(district);
 	}

@@ -22,6 +22,9 @@
 	<select id="listPageRule" parameterType="TbRule" resultMap="ruleResultMap">
 		 select * from tb_rule
 	</select>
+	<select id="listRule" parameterType="TbRule" resultMap="ruleResultMap">
+		 select * from tb_rule
+	</select>
 	<select id="getRuleById" parameterType="Integer" resultMap="ruleResultMap">
 		 select * from tb_rule where id={#id}
 	</select>
